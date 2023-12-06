@@ -10,10 +10,16 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CadastroPessoaView extends JFrame {
 
 	private JPanel contentPane;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -67,6 +73,12 @@ public class CadastroPessoaView extends JFrame {
 		panel.add(ftfNome);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				pesquisar();
+			}
+		});
 		btnPesquisar.setMnemonic('P');
 		btnPesquisar.setBounds(523, 29, 85, 21);
 		panel.add(btnPesquisar);
@@ -83,5 +95,19 @@ public class CadastroPessoaView extends JFrame {
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.setBounds(281, 139, 85, 21);
 		contentPane.add(btnExcluir);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(20, 171, 595, 207);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+	}
+
+	//Add Pesquisar
+	protected void pesquisar() {
+		
+		
 	}
 }
