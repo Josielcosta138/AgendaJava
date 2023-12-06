@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
@@ -20,6 +22,8 @@ public class CadastroPessoaView extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private JFormattedTextField ftfCodigo;
+	private TableModel tableModel;
 
 	/**
 	 * Launch the application.
@@ -60,7 +64,7 @@ public class CadastroPessoaView extends JFrame {
 		lblCodigo.setBounds(10, 10, 74, 13);
 		panel.add(lblCodigo);
 		
-		JFormattedTextField ftfCodigo = new JFormattedTextField();
+		ftfCodigo = new JFormattedTextField();
 		ftfCodigo.setBounds(10, 30, 105, 19);
 		panel.add(ftfCodigo);
 		
@@ -105,7 +109,7 @@ public class CadastroPessoaView extends JFrame {
 		scrollPane.setViewportView(table);
 	}
 
-	//Add Pesquisar
+	//Add Pesquisar teste 
 	protected void pesquisar() {
 		
 		
