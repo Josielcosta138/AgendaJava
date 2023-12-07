@@ -15,7 +15,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-
+import br.com.senac.view.LoginView;
 import br.com.senac.vo.ContatVO;
 import br.com.senac.vo.ContelVO;
 
@@ -23,22 +23,24 @@ import br.com.senac.vo.ContelVO;
 public class TesteHibernate {
 	
 	
-	// Incluir - Ok 
-	// Editar  - OK
-	// Excluir - OK
+	// Incluir - 
+	// Editar  -
+	// Excluir - 
 	
 	// 3 consultas: 
-	// 1º Listagem de todos números/emails de um determinado contato - OK
-	// 2º listagem de todos os contatos que possuam um determinado nome (passado por parâmetro) - OK
-	// 3º Todos os contatos que não possuam número telefônico atribuído/cadastrado. - OK
+	// 1º Listagem de todos números/emails de um determinado contato - 
+	// 2º listagem de todos os contatos que possuam um determinado nome (passado por parâmetro) - 
+	// 3º Todos os contatos que não possuam número telefônico atribuído/cadastrado. - 
 	
 	
 	
 	
 	public static void main(String[] args) {
 		
+		LoginView frame = new LoginView();
+		frame.setVisible(true);
 		
-		TesteHibernate th = new TesteHibernate();
+/*		TesteHibernate th = new TesteHibernate();
 		
 		th.inserirContato();
 		//th.inserirPorId();
@@ -49,7 +51,7 @@ public class TesteHibernate {
 		th.consultaPorNome();
 		//th.consultaCampoNulo();
 		
-		System.exit(0);
+		System.exit(0);    */
 	}
 
 	private void consultaCampoNulo() {
