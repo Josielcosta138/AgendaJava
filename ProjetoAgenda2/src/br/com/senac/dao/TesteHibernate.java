@@ -55,7 +55,7 @@ public class TesteHibernate {
 	}
 
 	private void consultaCampoNulo() {
-		System.out.println("********************Iniciando consulta por campo Nulo**********************");
+		System.out.println("********* Iniciando consulta por campo Nulo **********");
 		EntityManager em = HibernateUtil.getEntityManager();
 		
 		
