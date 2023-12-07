@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "contat")
-public class ContatVO implements Serializable{
+public class ContatoVO implements Serializable{
 	
 private static final long serialVersionUID = 8018416086146027602L;
 	
@@ -54,14 +54,14 @@ private static final long serialVersionUID = 8018416086146027602L;
 	
 
 
-	public ContatVO() {
+	public ContatoVO() {
 		super();
 	}
 
 
 
 
-	public ContatVO(@NotNull BigInteger id, @NotNull @Size(min = 1, max = 100) String descri, Date datnas,
+	public ContatoVO(@NotNull BigInteger id, @NotNull @Size(min = 1, max = 100) String descri, Date datnas,
 			@Size(min = 1, max = 400) String observ) {
 		super();
 		this.id = id;
@@ -70,7 +70,10 @@ private static final long serialVersionUID = 8018416086146027602L;
 		this.observ = observ;
 	}
 
-
+	public ContatoVO(BigInteger id) {
+		super();
+		this.id = id;
+	}
 
 
 	public BigInteger getId() {
@@ -152,7 +155,7 @@ private static final long serialVersionUID = 8018416086146027602L;
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ContatVO other = (ContatVO) obj;
+		ContatoVO other = (ContatoVO) obj;
 		return Objects.equals(datnas, other.datnas) && Objects.equals(descri, other.descri)
 				&& Objects.equals(id, other.id) && Objects.equals(observ, other.observ);
 	}
