@@ -49,7 +49,7 @@ public class ContelVO implements Serializable{
 	@NotNull
 	@JoinColumn(name = "contat", referencedColumnName = "id", nullable = false)
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private ContatVO contat;
+	private ContatoVO contat;
 
 	
 
@@ -61,7 +61,7 @@ public class ContelVO implements Serializable{
 
 
 
-	public ContelVO(@NotNull BigInteger id, String numero, String dddnum, String emails, @NotNull ContatVO contat) {
+	public ContelVO(@NotNull BigInteger id, String numero, String dddnum, String emails, @NotNull ContatoVO contat) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -129,14 +129,14 @@ public class ContelVO implements Serializable{
 
 
 
-	public ContatVO getContat() {
+	public ContatoVO getContat() {
 		return contat;
 	}
 
 
 
 
-	public void setContat(ContatVO contat) {
+	public void setContat(ContatoVO contat) {
 		this.contat = contat;
 	}
 

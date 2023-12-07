@@ -16,7 +16,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 
-import br.com.senac.vo.ContatVO;
+import br.com.senac.vo.ContatoVO;
 import br.com.senac.vo.ContelVO;
 
 
@@ -103,7 +103,7 @@ public class TesteHibernate {
 		//Clausula from
 		Root<ContelVO> contelFrom = criteria.from(ContelVO.class);
 		
-		ContatVO cont = new ContatVO();
+		ContatoVO cont = new ContatoVO();
 		cont.setId(BigInteger.ONE);
 		
 		//Class é do pacote Java.persistente
@@ -151,7 +151,7 @@ public class TesteHibernate {
 		    EntityManager em = HibernateUtil.getEntityManager();
 
 		    // Verifica se o ContatVO com id 1 existe
-		    ContatVO contatVO = em.find(ContatVO.class, new BigInteger("1"));
+		    ContatoVO contatVO = em.find(ContatoVO.class, new BigInteger("1"));
 
 		    if (contatVO == null) {
 		        System.out.println("ContatVO com id 1 não encontrado.");
@@ -231,7 +231,7 @@ public class TesteHibernate {
 			
 			//contat
 			em.getTransaction().begin();
-			ContatVO contatVO = em.find(ContatVO.class, new BigInteger("3"));
+			ContatoVO contatVO = em.find(ContatoVO.class, new BigInteger("3"));
 			
 			em.remove(contatVO);
 			em.getTransaction().commit();
@@ -260,7 +260,7 @@ public class TesteHibernate {
 		//Clausula from
 		Root<ContelVO> contelFrom = criteria.from(ContelVO.class);
 		
-		ContatVO cont = new ContatVO();
+		ContatoVO cont = new ContatoVO();
 		cont.setId(BigInteger.ONE);
 	
 		//Class é do pacote Java.persistente
@@ -306,7 +306,7 @@ public class TesteHibernate {
 		EntityManager em = HibernateUtil.getEntityManager();
 		
 		
-		ContatVO contatVO = new ContatVO();
+		ContatoVO contatVO = new ContatoVO();
 		contatVO.setDescri(" Contato - Joao");
 		contatVO.setDatnas(new Date());
 		contatVO.setObserv("Teste inserindo observação");	
