@@ -6,25 +6,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.xml.crypto.Data;
 
-import br.com.senac.exception.BOValidationException;
-import br.com.senac.view.RowData;
-//import br.com.senac.vo.ContatVO;
 
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
-import java.math.BigInteger;
-import java.sql.Date;
-import java.text.DecimalFormat;
-import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class CadastroPessoaView extends JFrame {
@@ -33,7 +24,6 @@ public class CadastroPessoaView extends JFrame {
 	private JTable table;
 	private JFormattedTextField ftfCodigo;
 	private TableModel tableModel;
-	private JFormattedTextField ftfNome;
 
 	/**
 	 * Launch the application.
@@ -82,7 +72,7 @@ public class CadastroPessoaView extends JFrame {
 		lblNome.setBounds(160, 10, 54, 13);
 		panel.add(lblNome);
 		
-		ftfNome = new JFormattedTextField();
+		JFormattedTextField ftfNome = new JFormattedTextField();
 		ftfNome.setBounds(159, 30, 312, 19);
 		panel.add(ftfNome);
 		
@@ -99,11 +89,11 @@ public class CadastroPessoaView extends JFrame {
 		
 		JButton btnAdcionar = new JButton("Adcionar");
 		btnAdcionar.setMnemonic('A');
-		btnAdcionar.setBounds(25, 139, 85, 21);
+		btnAdcionar.setBounds(10, 139, 85, 21);
 		contentPane.add(btnAdcionar);
 		
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(153, 139, 85, 21);
+		btnEditar.setBounds(145, 139, 85, 21);
 		contentPane.add(btnEditar);
 		
 		JButton btnExcluir = new JButton("Excluir");
@@ -120,90 +110,8 @@ public class CadastroPessoaView extends JFrame {
 	}
 
 	//Add Pesquisar teste 
-	private void pesquisar() {
-		tableModel.clearTable();
-		BigInteger id = null;
-		String descri = null;
-		Date datnas = null;
+	protected void pesquisar() {
 		
-try {
-			
-			if (this.ftfCodigo.getText() != null &&  
-					this.ftfCodigo.getText().trim().length() > 0) {
-						try {
-							id = new BigInteger(ftfCodigo.getText().trim());
-						} catch (Exception e) {
-							throw new BOValidationException("Código: erro de validação" + " valor inválido");
-						}
-				}
-			
-			if (this.ftfNome.getText() != null && ftfNome.getText().trim().length() > 0) {
-				descri = ftfNome.getText().trim();
-			}
-			
-			
-			//IService service = new Service();
-			//ContatVO c1 = new ContatVO(BigInteger.ONE);
-			//List<ContatVO> contatos = service.listarProduto(c1, id, descricao, status, codBar, Integer.MAX_VALUE, 0);
-			
-			
-			DecimalFormat df= new DecimalFormat("R$#,##0.00");
-			DecimalFormat dfQtd= new DecimalFormat("###,##0.000");
-			
-			/*
-			for (ProdutoVO produtoVO : produtos) {
-				RowData rowData= new RowData();
-				rowData.getValues().put(0, produtoVO.getId().toString());
-				rowData.getValues().put(1, produtoVO.getDescri());
-				rowData.getValues().put(2, dfQtd.format(produtoVO.getQtdest()));
-				
-				if (produtoVO.getStatus().equals("A")) {
-					rowData.getValues().put(3, "Ativo");   //produtoVO.getStatus());
-				} else if (produtoVO.getStatus().equals("I")) {
-					rowData.getValues().put(3, "Inativo"); // produtoVO.getStatus());
-				}
-				
-				
-				rowData.getValues().put(4, df.format(produtoVO.getValcom()));
-				rowData.getValues().put(5, df.format(produtoVO.getValven()));
-				rowData.setElement(produtoVO);
-				tableModel.addRow(rowData);
-			} */
-			
-		} catch (BOValidationException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de validação", JOptionPane.WARNING_MESSAGE);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de sistema", JOptionPane.ERROR_MESSAGE);
-		}
-	}
 		
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

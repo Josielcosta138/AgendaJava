@@ -15,30 +15,32 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-
-import br.com.senac.vo.ContatoVO;
+import br.com.senac.view.LoginView;
+import br.com.senac.vo.ContatVO;
 import br.com.senac.vo.ContelVO;
 
 
 public class TesteHibernate {
 	
 	
-	// Incluir - Ok 
-	// Editar  - OK
-	// Excluir - OK
+	// Incluir - 
+	// Editar  -
+	// Excluir - 
 	
 	// 3 consultas: 
-	// 1º Listagem de todos números/emails de um determinado contato - OK
-	// 2º listagem de todos os contatos que possuam um determinado nome (passado por parâmetro) - OK
-	// 3º Todos os contatos que não possuam número telefônico atribuído/cadastrado. - OK
+	// 1º Listagem de todos números/emails de um determinado contato - 
+	// 2º listagem de todos os contatos que possuam um determinado nome (passado por parâmetro) - 
+	// 3º Todos os contatos que não possuam número telefônico atribuído/cadastrado. - 
 	
 	
 	
 	
 	public static void main(String[] args) {
 		
+		LoginView frame = new LoginView();
+		frame.setVisible(true);
 		
-		TesteHibernate th = new TesteHibernate();
+/*		TesteHibernate th = new TesteHibernate();
 		
 		th.inserirContato();
 		//th.inserirPorId();
@@ -49,11 +51,11 @@ public class TesteHibernate {
 		th.consultaPorNome();
 		//th.consultaCampoNulo();
 		
-		System.exit(0);
+		System.exit(0);    */
 	}
 
 	private void consultaCampoNulo() {
-		System.out.println("********************Iniciando consulta por campo Nulo**********************");
+		System.out.println("********* Iniciando consulta por campo Nulo **********");
 		EntityManager em = HibernateUtil.getEntityManager();
 		
 		
@@ -103,7 +105,7 @@ public class TesteHibernate {
 		//Clausula from
 		Root<ContelVO> contelFrom = criteria.from(ContelVO.class);
 		
-		ContatoVO cont = new ContatoVO();
+		ContatVO cont = new ContatVO();
 		cont.setId(BigInteger.ONE);
 		
 		//Class é do pacote Java.persistente
@@ -151,7 +153,7 @@ public class TesteHibernate {
 		    EntityManager em = HibernateUtil.getEntityManager();
 
 		    // Verifica se o ContatVO com id 1 existe
-		    ContatoVO contatVO = em.find(ContatoVO.class, new BigInteger("1"));
+		    ContatVO contatVO = em.find(ContatVO.class, new BigInteger("1"));
 
 		    if (contatVO == null) {
 		        System.out.println("ContatVO com id 1 não encontrado.");
@@ -231,7 +233,7 @@ public class TesteHibernate {
 			
 			//contat
 			em.getTransaction().begin();
-			ContatoVO contatVO = em.find(ContatoVO.class, new BigInteger("3"));
+			ContatVO contatVO = em.find(ContatVO.class, new BigInteger("3"));
 			
 			em.remove(contatVO);
 			em.getTransaction().commit();
@@ -260,7 +262,7 @@ public class TesteHibernate {
 		//Clausula from
 		Root<ContelVO> contelFrom = criteria.from(ContelVO.class);
 		
-		ContatoVO cont = new ContatoVO();
+		ContatVO cont = new ContatVO();
 		cont.setId(BigInteger.ONE);
 	
 		//Class é do pacote Java.persistente
@@ -306,7 +308,7 @@ public class TesteHibernate {
 		EntityManager em = HibernateUtil.getEntityManager();
 		
 		
-		ContatoVO contatVO = new ContatoVO();
+		ContatVO contatVO = new ContatVO();
 		contatVO.setDescri(" Contato - Joao");
 		contatVO.setDatnas(new Date());
 		contatVO.setObserv("Teste inserindo observação");	
