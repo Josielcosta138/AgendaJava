@@ -16,7 +16,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import br.com.senac.view.LoginView;
-import br.com.senac.vo.ContatVO;
+import br.com.senac.vo.ContatoVO;
 import br.com.senac.vo.ContelVO;
 
 
@@ -81,7 +81,7 @@ public class TesteHibernate {
 		System.out.println("\n");
 		
 		for (ContelVO contelVO : listaContatoTel) {
-			System.out.println("Contat: " + contelVO.getContat().getDescri() + 
+			System.out.println("Contat: " + contelVO.getContat().getNome() + 
 					"\nNúmero: " + contelVO.getNumero() +
 					"\nE-mails: " + contelVO.getEmails());
 			System.out.println("\n");
@@ -105,7 +105,7 @@ public class TesteHibernate {
 		//Clausula from
 		Root<ContelVO> contelFrom = criteria.from(ContelVO.class);
 		
-		ContatVO cont = new ContatVO();
+		ContatoVO cont = new ContatoVO();
 		cont.setId(BigInteger.ONE);
 		
 		//Class é do pacote Java.persistente
@@ -131,7 +131,7 @@ public class TesteHibernate {
 		System.out.println("\n");
 		
 		for (ContelVO contelVO : listaContatos) {
-			System.out.println("Contat: " + contelVO.getContat().getDescri() + 
+			System.out.println("Contat: " + contelVO.getContat().getNome() + 
 					"\nNúmero: " + contelVO.getNumero() +
 					"\nE-mails: " + contelVO.getEmails());
 			System.out.println("\n");
@@ -153,7 +153,7 @@ public class TesteHibernate {
 		    EntityManager em = HibernateUtil.getEntityManager();
 
 		    // Verifica se o ContatVO com id 1 existe
-		    ContatVO contatVO = em.find(ContatVO.class, new BigInteger("1"));
+		    ContatoVO contatVO = em.find(ContatoVO.class, new BigInteger("1"));
 
 		    if (contatVO == null) {
 		        System.out.println("ContatVO com id 1 não encontrado.");
@@ -233,7 +233,7 @@ public class TesteHibernate {
 			
 			//contat
 			em.getTransaction().begin();
-			ContatVO contatVO = em.find(ContatVO.class, new BigInteger("3"));
+			ContatoVO contatVO = em.find(ContatoVO.class, new BigInteger("3"));
 			
 			em.remove(contatVO);
 			em.getTransaction().commit();
@@ -262,7 +262,7 @@ public class TesteHibernate {
 		//Clausula from
 		Root<ContelVO> contelFrom = criteria.from(ContelVO.class);
 		
-		ContatVO cont = new ContatVO();
+		ContatoVO cont = new ContatoVO();
 		cont.setId(BigInteger.ONE);
 	
 		//Class é do pacote Java.persistente
@@ -287,7 +287,7 @@ public class TesteHibernate {
 		System.out.println("\n");
 		
 		for (ContelVO contelVO : listaContat) {
-			System.out.println("Contat: " + contelVO.getContat().getDescri() + 
+			System.out.println("Contat: " + contelVO.getContat().getNome() + 
 					"\nNúmero: " + contelVO.getNumero() +
 					"\nE-mails: " + contelVO.getEmails());
 			System.out.println("\n");
@@ -308,8 +308,8 @@ public class TesteHibernate {
 		EntityManager em = HibernateUtil.getEntityManager();
 		
 		
-		ContatVO contatVO = new ContatVO();
-		contatVO.setDescri(" Contato - Joao");
+		ContatoVO contatVO = new ContatoVO();
+		contatVO.setNome(" Contato - Joao");
 		contatVO.setDatnas(new Date());
 		contatVO.setObserv("Teste inserindo observação");	
 		

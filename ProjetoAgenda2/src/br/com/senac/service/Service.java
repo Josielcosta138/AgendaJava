@@ -4,37 +4,36 @@ import java.math.BigInteger;
 import java.sql.Date;
 import java.util.List;
 
+import br.com.senac.bo.IContatoBO;
 import br.com.senac.exception.BOException;
 import br.com.senac.exception.BOValidationException;
 import br.com.senac.vo.ContatoVO;
 
 public class Service implements IService {
 
+	
+	
 	@Override
-	public ContatoVO buscarProdutoPorId(ContatoVO contatVO) throws BOException {
-		
-		
-		
+	public ContatoVO buscarContatosPorId(ContatoVO contatVO) throws BOException {
+
 		return null;
 	}
 
 	@Override
-	public List<ContatoVO> listarProduto(ContatoVO contatVO, BigInteger id, String descri, String status, Date datnas,
+	public List<ContatoVO> listarContato(ContatoVO contatVO, BigInteger id, String descri, Date datnas,
 			String observ) throws BOException {
-		
-		
-		
+	
 		return null;
 	}
 
 	@Override
-	public void salvar(ContatoVO produtoVO) throws BOValidationException, BOException {
+	public void salvar(ContatoVO contatoVO) throws BOValidationException, BOException {
 		
 
 	}
 
 	@Override
-	public void excluir(ContatoVO produtoVO) throws BOValidationException, BOException {
+	public void excluir(ContatoVO contatoVO) throws BOValidationException, BOException {
 		
 
 	}

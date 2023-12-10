@@ -37,7 +37,7 @@ private static final long serialVersionUID = 8018416086146027602L;
 	@NotNull
 	@Size(min = 1, max = 100)
 	@Column(name = "descri", nullable = false, length = 100)
-	private String descri;
+	private String nome;
 	
 	
 	@Basic
@@ -65,7 +65,7 @@ private static final long serialVersionUID = 8018416086146027602L;
 			@Size(min = 1, max = 400) String observ) {
 		super();
 		this.id = id;
-		this.descri = descri;
+		this.nome = descri;
 		this.datnas = datnas;
 		this.observ = observ;
 	}
@@ -90,15 +90,15 @@ private static final long serialVersionUID = 8018416086146027602L;
 
 
 
-	public String getDescri() {
-		return descri;
+	public String getNome() {
+		return nome;
 	}
 
 
 
 
-	public void setDescri(String descri) {
-		this.descri = descri;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 
@@ -141,7 +141,7 @@ private static final long serialVersionUID = 8018416086146027602L;
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(datnas, descri, id, observ);
+		return Objects.hash(datnas, nome, id, observ);
 	}
 
 
@@ -156,7 +156,7 @@ private static final long serialVersionUID = 8018416086146027602L;
 		if (getClass() != obj.getClass())
 			return false;
 		ContatoVO other = (ContatoVO) obj;
-		return Objects.equals(datnas, other.datnas) && Objects.equals(descri, other.descri)
+		return Objects.equals(datnas, other.datnas) && Objects.equals(nome, other.nome)
 				&& Objects.equals(id, other.id) && Objects.equals(observ, other.observ);
 	}
 
@@ -165,7 +165,7 @@ private static final long serialVersionUID = 8018416086146027602L;
 
 	@Override
 	public String toString() {
-		return "ContatVO [id=" + id + ", descri=" + descri + ", datnas=" + datnas + ", observ=" + observ + "]";
+		return "ContatVO [id=" + id + ", descri=" + nome + ", datnas=" + datnas + ", observ=" + observ + "]";
 	}
 	
 	

@@ -6,16 +6,34 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.table.TableColumnModel;
 
+import br.com.senac.dao.HibernateUtil;
+import br.com.senac.exception.BOValidationException;
+import br.com.senac.service.IService;
+import br.com.senac.service.Service;
+import br.com.senac.view.RowData;
+import br.com.senac.view.TableModel;
+import br.com.senac.vo.ContatoVO;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JFormattedTextField;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.util.Date;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class CadastroPessoaView extends JFrame {
@@ -24,6 +42,7 @@ public class CadastroPessoaView extends JFrame {
 	private JTable table;
 	private JFormattedTextField ftfCodigo;
 	private TableModel tableModel;
+	private JFormattedTextField ftfNome;
 
 	/**
 	 * Launch the application.
@@ -45,6 +64,11 @@ public class CadastroPessoaView extends JFrame {
 	 * Create the frame.   
 	 */
 	public CadastroPessoaView() {
+		
+		 table = new JTable();
+		 tableModel = new TableModel();
+		 table.setModel(tableModel);
+		
 		setTitle("Cadastro de pessoas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 669, 428);
@@ -72,7 +96,7 @@ public class CadastroPessoaView extends JFrame {
 		lblNome.setBounds(160, 10, 54, 13);
 		panel.add(lblNome);
 		
-		JFormattedTextField ftfNome = new JFormattedTextField();
+		ftfNome = new JFormattedTextField();
 		ftfNome.setBounds(159, 30, 312, 19);
 		panel.add(ftfNome);
 		
@@ -84,20 +108,20 @@ public class CadastroPessoaView extends JFrame {
 			}
 		});
 		btnPesquisar.setMnemonic('P');
-		btnPesquisar.setBounds(523, 29, 85, 21);
+		btnPesquisar.setBounds(508, 29, 100, 21);
 		panel.add(btnPesquisar);
 		
 		JButton btnAdcionar = new JButton("Adcionar");
 		btnAdcionar.setMnemonic('A');
-		btnAdcionar.setBounds(10, 139, 85, 21);
+		btnAdcionar.setBounds(20, 139, 85, 21);
 		contentPane.add(btnAdcionar);
 		
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(145, 139, 85, 21);
+		btnEditar.setBounds(165, 139, 85, 21);
 		contentPane.add(btnEditar);
 		
 		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(281, 139, 85, 21);
+		btnExcluir.setBounds(308, 139, 85, 21);
 		contentPane.add(btnExcluir);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -105,13 +129,124 @@ public class CadastroPessoaView extends JFrame {
 		scrollPane.setBounds(20, 171, 595, 207);
 		contentPane.add(scrollPane);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
+		tableModel = new TableModel();
+		tableModel.addColumn("Código");
+		tableModel.addColumn("Descrição");
+		tableModel.addColumn("Data");
+		tableModel.addColumn("Observação");
+		
+		table = new JTable(tableModel);
+		table.setAutoscrolls(true);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		TableColumnModel tcm = table.getColumnModel();
+		tcm.getColumn(0).setPreferredWidth(100);
+		tcm.getColumn(1).setPreferredWidth(180);
+		tcm.getColumn(2).setPreferredWidth(120);
+		tcm.getColumn(3).setPreferredWidth(180);
+		
+		scrollPane.setViewportView(table); 
 	}
 
 	//Add Pesquisar teste 
 	protected void pesquisar() {
 		
 		
+		if (tableModel != null) {
+		    tableModel.clearTable();
+		}
+		BigInteger id = null;
+		String nome = null;
+		Date datnas = null;
+		String observ = null;
+		
+		
+try {
+			
+	  if (this.ftfCodigo.getText() != null && this.ftfCodigo.getText().trim().length() > 0) {
+          try {
+              id = new BigInteger(ftfCodigo.getText().trim());
+          } catch (Exception e) {
+              throw new BOValidationException("Código: erro de validação" + " valor inválido");
+          }
+      }
+			
+			if (this.ftfNome.getText() != null && ftfNome.getText().trim().length() > 0) {
+				nome = ftfNome.getText().trim();
+			}
+			
+			if (this.ftfNome.getText() != null && ftfNome.getText().trim().length() > 0) {
+				nome = ftfNome.getText().trim();
+			}
+				
+			
+			 System.out.println("********************Iniciando consulta de contatos**********************");
+			    EntityManager em = HibernateUtil.getEntityManager();
+
+			   
+			        CriteriaBuilder cb = em.getCriteriaBuilder();
+			        CriteriaQuery<ContatoVO> criteria = cb.createQuery(ContatoVO.class);
+
+			        // Clausula from
+			        Root<ContatoVO> contatosFrom = criteria.from(ContatoVO.class);
+			        criteria.select(contatosFrom);
+			        
+			        if (id != null) {
+			            criteria.where(cb.equal(contatosFrom.get("id"), id));
+			        }
+			        
+			        if (nome != null) {
+			        	
+			        	 String searchTerm = "%" + nome.toLowerCase() + "%";
+			        	 criteria.where(cb.like(cb.lower(contatosFrom.get("nome")), searchTerm));
+			        }
+			        TypedQuery<ContatoVO> query = em.createQuery(criteria);
+
+			        // Limita quantidade de Registro
+			        query.setMaxResults(10);
+
+			        // List do pacote util
+			        List<ContatoVO> listaContat = query.getResultList();
+			
+			
+			IService service = new Service();
+			ContatoVO c1 = new ContatoVO(BigInteger.ONE);
+			
+			System.out.println(listaContat);
+			
+			DecimalFormat df = new DecimalFormat("R$#,##0.00");
+			DecimalFormat dfQtd= new DecimalFormat("###,##0.000");
+			
+			
+			for (ContatoVO contatoVO : listaContat) {
+				RowData rowData= new RowData();
+				rowData.getValues().put(0, contatoVO.getId().toString());
+				rowData.getValues().put(1, contatoVO.getNome());
+				rowData.getValues().put(2, contatoVO.getDatnas());
+				rowData.getValues().put(3, contatoVO.getObserv());
+				
+				System.out.println();
+				
+				
+				rowData.setElement(contatoVO);
+				tableModel.addRow(rowData);
+			}
+			
+			
+			
+		} catch (BOValidationException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de validação", JOptionPane.WARNING_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de sistema", JOptionPane.ERROR_MESSAGE);
+		}	
 	}
+	
 }
+
+
+
+
+
+
+

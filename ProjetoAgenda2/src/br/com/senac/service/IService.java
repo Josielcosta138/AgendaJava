@@ -10,13 +10,12 @@ import br.com.senac.vo.ContatoVO;
 
 public interface IService {
 	
-	public abstract ContatoVO buscarProdutoPorId( ContatoVO contatVO)
+	public abstract ContatoVO buscarContatosPorId( ContatoVO contatVO)
 			throws BOException;
 		
-		public abstract List<ContatoVO> listarProduto(ContatoVO contatVO, 
+		public abstract List<ContatoVO> listarContato(ContatoVO contatVO, 
 													BigInteger id, 
 													String descri, 
-													String status, 
 													Date datnas,
 													String observ) throws BOException;
 		
