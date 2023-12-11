@@ -47,6 +47,10 @@ public class ContatoBO implements IContatoBO {
 			throw new BOException("Descrição: Erro de validação: " + "descrição do contato nula. ");
 		}else if (contatoVO.getNome().length() < 2) {
 			throw new BOValidationException("Descrição: Erro de validação: " + "a descrição do contato é muito curta.");
+		}else if (contatoVO.getDatnas() == null) {
+			throw new BOException("Data: Erro de validação: " + "data do contato nula. ");
+		}else if (contatoVO.getObserv() == null) {
+			throw new BOException("Observação: Erro de validação: " + "observação do contato nula. ");
 		}
 		
 		contatoDao.salvar(contatoVO);

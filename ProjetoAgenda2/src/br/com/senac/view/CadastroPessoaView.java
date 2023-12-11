@@ -9,6 +9,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.TableColumnModel;
 
 import br.com.senac.dao.HibernateUtil;
+import br.com.senac.exception.BOException;
 import br.com.senac.exception.BOValidationException;
 import br.com.senac.service.IService;
 import br.com.senac.service.Service;
@@ -112,15 +113,33 @@ public class CadastroPessoaView extends JFrame {
 		panel.add(btnPesquisar);
 		
 		JButton btnAdcionar = new JButton("Adcionar");
+		btnAdcionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirTelaEdicao();
+				
+			}
+		});
 		btnAdcionar.setMnemonic('A');
 		btnAdcionar.setBounds(20, 139, 85, 21);
 		contentPane.add(btnAdcionar);
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				editarRegistro();
+			}
+		});
 		btnEditar.setBounds(165, 139, 85, 21);
 		contentPane.add(btnEditar);
 		
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				excluir();
+				
+			}
+		});
 		btnExcluir.setBounds(308, 139, 85, 21);
 		contentPane.add(btnExcluir);
 		
@@ -146,11 +165,96 @@ public class CadastroPessoaView extends JFrame {
 		tcm.getColumn(3).setPreferredWidth(180);
 		
 		scrollPane.setViewportView(table); 
+		
+		
+	}
+
+	protected void excluir() {
+		if (table.getSelectedRow() < 0) {
+			JOptionPane.showMessageDialog(this, "É necessário selecionar um registro! ", "Mensagem de aviso",
+					JOptionPane.WARNING_MESSAGE);
+		}else {
+			
+			Object[] options = {"Sim!", "Não"};
+			int n = JOptionPane.showOptionDialog(
+					this, // não deixa clicar na tela de baixo
+					"Deseja realmente exluir o registro? ", "Confirmação", 
+					JOptionPane.YES_NO_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null,
+					options,
+					options[1]);
+			
+			if (n == 0) {
+				ContatoVO contato = (ContatoVO)tableModel.getRows()
+						.get(table.getSelectedRow()).getElement();
+				
+				Service service = new Service();
+				
+				try {
+					service.excluir(contato);
+					
+					JOptionPane.showMessageDialog(
+							this,
+							"Registro exluido com sucesso!",
+							"Mensagem de aviso",
+							JOptionPane.INFORMATION_MESSAGE);
+					
+					pesquisar();
+					
+				} catch (BOValidationException e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(
+							this, 
+							e.getMessage(),
+							"Mensagem de aviso",
+							JOptionPane.WARNING_MESSAGE);
+					
+				}  catch (BOException e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(
+							this, 
+							"Ocorreu um erro ao realizar a operação!",
+							"Mensagem de erro",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+		
+	}
+
+	private void editarRegistro() {
+		if (table.getSelectedRow() < 0 ) {
+			JOptionPane.showMessageDialog(
+					this,
+					"É necessário selecionar um registro!",
+					"Mensagem de aviso.",
+					JOptionPane.WARNING_MESSAGE);
+		}else {
+			
+			try {
+				
+				EditarPessoa edt = new EditarPessoa();
+				ContatoVO aux = (ContatoVO)tableModel.getRows()
+						.get(table.getSelectedRow()).getElement();
+				
+				edt.editar(aux);
+				edt.setVisible(true);
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(
+						null,
+						"Ocooreu um erro",
+						"Erro.",
+						JOptionPane.WARNING_MESSAGE);
+			}
+		}
+		
 	}
 
 	//Add Pesquisar teste 
-	protected void pesquisar() {
-		
+	private void pesquisar() {
 		
 		if (tableModel != null) {
 		    tableModel.clearTable();
@@ -196,26 +300,22 @@ try {
 			        }
 			        
 			        if (nome != null) {
-			        	
 			        	 String searchTerm = "%" + nome.toLowerCase() + "%";
 			        	 criteria.where(cb.like(cb.lower(contatosFrom.get("nome")), searchTerm));
 			        }
+			        
 			        TypedQuery<ContatoVO> query = em.createQuery(criteria);
 
 			        // Limita quantidade de Registro
-			        query.setMaxResults(10);
+			       // query.setMaxResults(100);
 
 			        // List do pacote util
 			        List<ContatoVO> listaContat = query.getResultList();
 			
 			
 			IService service = new Service();
-			ContatoVO c1 = new ContatoVO(BigInteger.ONE);
 			
 			System.out.println(listaContat);
-			
-			DecimalFormat df = new DecimalFormat("R$#,##0.00");
-			DecimalFormat dfQtd= new DecimalFormat("###,##0.000");
 			
 			
 			for (ContatoVO contatoVO : listaContat) {
@@ -242,7 +342,24 @@ try {
 		}	
 	}
 	
+	
+	private void abrirTelaEdicao() {
+		try {
+			EditarPessoa editarPessoa = new EditarPessoa();
+			editarPessoa.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(
+					this,
+					"Ocorreu um erro ao realizar a operação!",
+					"Mensagem de aviso.",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	
 }
+
 
 
 

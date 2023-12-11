@@ -98,8 +98,6 @@ public class ContatoDAO implements IContatoDao {
 		}
 		
 		
-		
-		
 	}
 
 	@Override
@@ -109,8 +107,8 @@ public class ContatoDAO implements IContatoDao {
 		
 		try {
 			em.getTransaction().begin();
-			ContatoVO produto = em.find(ContatoVO.class, contatoVO.getId());
-			em.remove(contatoVO); // merge edicao
+			ContatoVO contato = em.find(ContatoVO.class, contatoVO.getId());
+			em.remove(contato); // merge edicao
 			em.getTransaction().commit();
 			
 		} catch (Exception e) {
