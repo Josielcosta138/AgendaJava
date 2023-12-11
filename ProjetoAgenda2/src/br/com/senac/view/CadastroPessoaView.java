@@ -50,6 +50,8 @@ public class CadastroPessoaView extends JFrame {
 	private TableModel tableModel;
 	private JFormattedTextField ftfNome;
 	private TelaAcessosView telaAcessos;
+	private CadastroPessoaView cadastroPessoaView;
+	private JTable table_1;
 
 	
 	public static void main(String[] args) {
@@ -69,22 +71,15 @@ public class CadastroPessoaView extends JFrame {
 	
 
 	public CadastroPessoaView() {
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				 abrirTelaAcessos();
-			}
-		});
 		
-		
-
+	
 		table = new JTable();
 		tableModel = new TableModel();
 		table.setModel(tableModel);
 
 		setTitle("Cadastro de pessoas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 669, 428);
+		setBounds(100, 100, 1088, 428);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -93,7 +88,7 @@ public class CadastroPessoaView extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(192, 192, 192)));
-		panel.setBounds(10, 21, 635, 79);
+		panel.setBounds(10, 21, 605, 79);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -121,7 +116,7 @@ public class CadastroPessoaView extends JFrame {
 			}
 		});
 		btnPesquisar.setMnemonic('P');
-		btnPesquisar.setBounds(508, 29, 100, 21);
+		btnPesquisar.setBounds(481, 29, 100, 21);
 		panel.add(btnPesquisar);
 
 		JButton btnAdcionar = new JButton("Adcionar");
@@ -177,8 +172,55 @@ public class CadastroPessoaView extends JFrame {
 		tcm.getColumn(3).setPreferredWidth(180);
 
 		scrollPane.setViewportView(table);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				voltar();
+			}
+		});
+		btnVoltar.setMnemonic('V');
+		btnVoltar.setBounds(530, 139, 85, 21);
+		contentPane.add(btnVoltar);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane_1.setBounds(635, 42, 417, 284);
+		contentPane.add(scrollPane_1);
+		
+		table_1 = new JTable();
+		scrollPane_1.setViewportView(table_1);
+		
+		JButton btnAdc = new JButton("Adcionar ");
+		btnAdc.setBounds(645, 341, 101, 21);
+		contentPane.add(btnAdc);
+		
+		JButton btnEdtar1 = new JButton("Editar");
+		btnEdtar1.setBounds(816, 341, 85, 21);
+		contentPane.add(btnEdtar1);
+		
+		JButton btnExcluir1 = new JButton("Excluir");
+		btnExcluir1.setBounds(967, 341, 85, 21);
+		contentPane.add(btnExcluir1);
+		
+		JLabel lblContatoTelef = new JLabel("Contatos Telefônicos");
+		lblContatoTelef.setBounds(794, 16, 144, 13);
+		contentPane.add(lblContatoTelef);
 
 	}
+
+
+	protected void voltar() {
+		  if (telaAcessos == null) {
+	            telaAcessos = new TelaAcessosView();
+	        }
+	        telaAcessos.setVisible(true);
+	        cadastroPessoaView.dispose();
+	        //cadastroPessoaView.setVisible(false);
+	        
+	    }
+		
+	
 
 
 	protected void excluir() {
@@ -294,7 +336,7 @@ public class CadastroPessoaView extends JFrame {
 			TypedQuery<ContatoVO> query = em.createQuery(criteria);
 			Order contatoOrderBy = cb.asc(contatosFrom.get("nome"));
 			criteria.orderBy(contatoOrderBy);
-			// query.setMaxResults(100);
+			
 
 			List<ContatoVO> listaContat = query.getResultList();
 
@@ -340,5 +382,4 @@ public class CadastroPessoaView extends JFrame {
 	        }
 	        telaAcessos.setVisible(true);
 	    }
-
 }
