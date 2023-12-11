@@ -323,7 +323,7 @@ public class CadastroPessoaView extends JFrame {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de sistema", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
+//
 	private void abrirTelaEdicao() {
 		try {
 			EditarPessoa editarPessoa = new EditarPessoa();
