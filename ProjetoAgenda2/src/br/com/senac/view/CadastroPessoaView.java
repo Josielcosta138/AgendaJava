@@ -38,6 +38,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
 
 public class CadastroPessoaView extends JFrame {
 
@@ -60,19 +61,18 @@ public class CadastroPessoaView extends JFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
 			}
-
 		});
 	}
 
 	public CadastroPessoaView() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroPessoaView.class.getResource("/br/com/senac/view/novaGeracaoAgenda.jpg")));
 
 		table = new JTable();
 		tableModel = new TableModel();
 		table.setModel(tableModel);
 
-		setTitle("Cadastro de pessoas");
+		setTitle("Agenda - Nova Geração");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1088, 428);
 		contentPane = new JPanel();
@@ -117,7 +117,7 @@ public class CadastroPessoaView extends JFrame {
 
 		btnAdcionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				abrirTelaEdicao();
+				adicionarContato();
 			}
 		});
 
@@ -129,7 +129,7 @@ public class CadastroPessoaView extends JFrame {
 
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				editarRegistro();
+				editarContato();
 			}
 		});
 
@@ -140,8 +140,7 @@ public class CadastroPessoaView extends JFrame {
 
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				excluir();
-
+				excluirContato();
 			}
 		});
 
@@ -163,19 +162,18 @@ public class CadastroPessoaView extends JFrame {
 		table = new JTable(tableModel);
 		table.setAutoscrolls(true);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		
+
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
 				listarContatosTelefonicos();
 			}
 		});
 
 		TableColumnModel tcm = table.getColumnModel();
-		tcm.getColumn(0).setPreferredWidth(100);
+		tcm.getColumn(0).setPreferredWidth(70);
 		tcm.getColumn(1).setPreferredWidth(180);
-		tcm.getColumn(2).setPreferredWidth(120);
+		tcm.getColumn(2).setPreferredWidth(140);
 		tcm.getColumn(3).setPreferredWidth(180);
 
 		scrollPane.setViewportView(table);
@@ -209,9 +207,9 @@ public class CadastroPessoaView extends JFrame {
 		table_1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
 		TableColumnModel tcm1 = table_1.getColumnModel();
-		tcm1.getColumn(0).setPreferredWidth(100);
-		tcm1.getColumn(1).setPreferredWidth(180);
-		tcm1.getColumn(2).setPreferredWidth(120);
+		tcm1.getColumn(0).setPreferredWidth(70);
+		tcm1.getColumn(1).setPreferredWidth(60);
+		tcm1.getColumn(2).setPreferredWidth(100);
 		tcm1.getColumn(3).setPreferredWidth(180);
 
 		scrolPContelefone.setViewportView(table_1);
@@ -219,17 +217,17 @@ public class CadastroPessoaView extends JFrame {
 		JButton btnAdc = new JButton("Adicionar ");
 		btnAdc.setBounds(645, 341, 101, 21);
 		contentPane.add(btnAdc);
-		
+
 		btnAdc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				abrirTelaEdicaoContato();
+				adicionarContatoTelefonico();
 			}
 		});
 
 		JButton btnEdtar1 = new JButton("Editar");
 		btnEdtar1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				editarContato();
+				editarContatoTelefonico();
 			}
 		});
 		btnEdtar1.setBounds(816, 341, 85, 21);
@@ -238,19 +236,19 @@ public class CadastroPessoaView extends JFrame {
 		JButton btnExcluir1 = new JButton("Excluir");
 		btnExcluir1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				excluirCOntato();
+				excluirContatoTelefonico();
 			}
 		});
 		btnExcluir1.setBounds(967, 341, 85, 21);
 		contentPane.add(btnExcluir1);
 
-		JLabel lblContatoTelef = new JLabel("Contatos Telefônicos");
+		JLabel lblContatoTelef = new JLabel("Contatos telefônicos");
 		lblContatoTelef.setBounds(794, 16, 144, 13);
 		contentPane.add(lblContatoTelef);
 
 	}
 
-	protected void excluirCOntato() {
+	protected void excluirContatoTelefonico() {
 		if (table.getSelectedRow() < 0) {
 			JOptionPane.showMessageDialog(this, "É necessário selecionar um registro! ", "Mensagem de aviso",
 					JOptionPane.WARNING_MESSAGE);
@@ -262,13 +260,12 @@ public class CadastroPessoaView extends JFrame {
 
 			if (n == 0) {
 				ContelVO contato = (ContelVO) tableModel1.getRows().get(table.getSelectedRow()).getElement();
-
 				Service service = new Service();
 
 				try {
 					service.excluir(contato);
 
-					JOptionPane.showMessageDialog(this, "Registro exluido com sucesso!", "Mensagem de aviso",
+					JOptionPane.showMessageDialog(this, "Registro excluído com sucesso!", "Mensagem de aviso",
 							JOptionPane.INFORMATION_MESSAGE);
 					pesquisar();
 
@@ -284,18 +281,15 @@ public class CadastroPessoaView extends JFrame {
 				}
 			}
 		}
-		
+
 	}
 
-	protected void editarContato() {
+	protected void editarContatoTelefonico() {
 		if (table_1.getSelectedRow() < 0) {
 			JOptionPane.showMessageDialog(this, "É necessário selecionar um registro!", "Mensagem de aviso.",
 					JOptionPane.WARNING_MESSAGE);
-			
 		} else {
-
 			try {
-
 				EditarContato edt = new EditarContato(getContatoSelecionado());
 				ContelVO aux = (ContelVO) tableModel1.getRows().get(table.getSelectedRow()).getElement();
 
@@ -304,13 +298,13 @@ public class CadastroPessoaView extends JFrame {
 
 			} catch (Exception e1) {
 				e1.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Ocooreu um erro", "Erro.", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ocorreu um erro", "Erro.", JOptionPane.WARNING_MESSAGE);
 			}
 		}
-		
+
 	}
 
-	protected void abrirTelaEdicaoContato() {
+	protected void adicionarContatoTelefonico() {
 		try {
 			ContatoVO contatoSelecionado = getContatoSelecionado();
 			EditarContato editarContato = new EditarContato(contatoSelecionado);
@@ -320,7 +314,7 @@ public class CadastroPessoaView extends JFrame {
 			JOptionPane.showMessageDialog(this, "Ocorreu um erro ao realizar a operação!", "Mensagem de aviso.",
 					JOptionPane.ERROR_MESSAGE);
 		}
-		
+
 	}
 
 	protected void voltar() {
@@ -331,7 +325,7 @@ public class CadastroPessoaView extends JFrame {
 		dispose();
 	}
 
-	protected void excluir() {
+	protected void excluirContato() {
 		if (table.getSelectedRow() < 0) {
 			JOptionPane.showMessageDialog(this, "É necessário selecionar um registro! ", "Mensagem de aviso",
 					JOptionPane.WARNING_MESSAGE);
@@ -349,7 +343,7 @@ public class CadastroPessoaView extends JFrame {
 				try {
 					service.excluir(contato);
 
-					JOptionPane.showMessageDialog(this, "Registro exluido com sucesso!", "Mensagem de aviso",
+					JOptionPane.showMessageDialog(this, "Registro excluído com sucesso!", "Mensagem de aviso",
 							JOptionPane.INFORMATION_MESSAGE);
 					pesquisar();
 
@@ -369,18 +363,15 @@ public class CadastroPessoaView extends JFrame {
 	}
 
 	private void listarContatosTelefonicos() {
-		
+
 		if (tableModel1 != null) {
 			tableModel1.clearTable();
 		}
-		
-		
+
 		ContatoVO contatos = (ContatoVO) tableModel.getRows().get(table.getSelectedRow()).getElement();
-//		JOptionPane.showMessageDialog(null, contatos.getNome());
 
 		if (contatos != null) {
 			try {
-
 				IService service = new Service();
 				List<ContelVO> telefones = service.listarContatoTel(contatos);
 
@@ -392,8 +383,8 @@ public class CadastroPessoaView extends JFrame {
 				for (ContelVO contelVO : telefones) {
 					RowData rowData = new RowData();
 					rowData.getValues().put(0, contelVO.getId().toString());
-					rowData.getValues().put(1, contelVO.getNumero());
-					rowData.getValues().put(2, contelVO.getDddnum());
+					rowData.getValues().put(1, contelVO.getDddnum());
+					rowData.getValues().put(2, contelVO.getNumero());
 					rowData.getValues().put(3, contelVO.getEmails());
 
 					System.out.println();
@@ -409,7 +400,7 @@ public class CadastroPessoaView extends JFrame {
 		}
 	}
 
-	private void editarRegistro() {
+	private void editarContato() {
 		if (table.getSelectedRow() < 0) {
 			JOptionPane.showMessageDialog(this, "É necessário selecionar um registro!", "Mensagem de aviso.",
 					JOptionPane.WARNING_MESSAGE);
@@ -425,7 +416,7 @@ public class CadastroPessoaView extends JFrame {
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Ocooreu um erro", "Erro.", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ocorreu um erro", "Erro.", JOptionPane.WARNING_MESSAGE);
 			}
 		}
 
@@ -508,13 +499,13 @@ public class CadastroPessoaView extends JFrame {
 	}
 
 //
-	private void abrirTelaEdicao() {
+	private void adicionarContato() {
 		try {
 			EditarPessoa editarPessoa = new EditarPessoa();
 			editarPessoa.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, "Ocorreu um erro ao realizar a operação!", "Mensagem de aviso.",
+			JOptionPane.showMessageDialog(this, "Ocorreu um erro ao realizar a operação!", "Mensagem de aviso",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -525,11 +516,11 @@ public class CadastroPessoaView extends JFrame {
 		}
 		telaAcessos.setVisible(true);
 	}
-	
+
 	private ContatoVO getContatoSelecionado() {
-	    if (table.getSelectedRow() >= 0) {
-	        return (ContatoVO) tableModel.getRows().get(table.getSelectedRow()).getElement();
-	    }
-	    return null;
+		if (table.getSelectedRow() >= 0) {
+			return (ContatoVO) tableModel.getRows().get(table.getSelectedRow()).getElement();
+		}
+		return null;
 	}
 }

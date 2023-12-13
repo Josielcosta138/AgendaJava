@@ -23,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class EditarPessoa extends JFrame {
 
@@ -47,9 +48,10 @@ public class EditarPessoa extends JFrame {
 	}
 
 	public EditarPessoa() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(EditarPessoa.class.getResource("/br/com/senac/view/novaGeracaoAgenda.jpg")));
 		contatoAtual = new ContatoVO();
 
-		setTitle("Cadastrar - Editar  Contato");
+		setTitle("Contato");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -126,7 +128,6 @@ public class EditarPessoa extends JFrame {
 
 	protected void salvar() {
 		try {
-
 			Service service = new Service();
 			ContatoVO contatoVO = new ContatoVO();
 
@@ -153,7 +154,7 @@ public class EditarPessoa extends JFrame {
 			        return;
 			    }
 			} catch (ParseException e) {
-			    // Trate a exceção de formato de data inválido
+			    // Trata a exceção de formato de data inválido
 			    e.printStackTrace();
 			    JOptionPane.showMessageDialog(this, "Formato de data inválido! Formato correto dd/MM/yyyy HH:mm:ss", "Erro",
 			            JOptionPane.ERROR_MESSAGE);
@@ -165,7 +166,7 @@ public class EditarPessoa extends JFrame {
 
 			service.salvar(contatoVO);
 
-			JOptionPane.showMessageDialog(null, "Edição realizada com sucesso!");
+			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!");
 
 		} catch (BOValidationException b) {
 			b.printStackTrace();

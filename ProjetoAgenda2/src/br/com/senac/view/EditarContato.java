@@ -25,6 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class EditarContato extends JFrame {
 
@@ -51,11 +52,12 @@ public class EditarContato extends JFrame {
 	}
 
 	public EditarContato(ContatoVO contato) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(EditarContato.class.getResource("/br/com/senac/view/novaGeracaoAgenda.jpg")));
 		contatoAtual = new ContelVO();
 		
 		this.contato = contato;
 
-		setTitle("Cadastrar - Editar  Contato");
+		setTitle("Contato");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -103,6 +105,7 @@ public class EditarContato extends JFrame {
 				salvar();
 			}
 		});
+		
 		btnSalvar.setMnemonic('C');
 		btnSalvar.setBounds(128, 210, 89, 23);
 		contentPane.add(btnSalvar);
@@ -110,7 +113,8 @@ public class EditarContato extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelar();
+				setVisible(false);
+				dispose();
 			}
 		});
 		btnCancelar.setMnemonic('C');
@@ -121,12 +125,6 @@ public class EditarContato extends JFrame {
 		panel.setBorder(new LineBorder(new Color(192, 192, 192), 2));
 		panel.setBounds(24, 194, 389, 5);
 		contentPane.add(panel);
-	}
-
-	protected void cancelar() {
-		this.setVisible(false);
-		this.dispose();
-
 	}
 
 	protected void salvar() {
@@ -144,7 +142,6 @@ public class EditarContato extends JFrame {
 				contelVO = service.buscarContatosTelPorId(contelVO);
 			}
 
-			
 			contelVO.setDddnum(ddd);
 			contelVO.setNumero(numero);
 			contelVO.setEmails(email);
@@ -152,7 +149,7 @@ public class EditarContato extends JFrame {
 
 			service.salvar(contelVO);
 
-			JOptionPane.showMessageDialog(null, "Edição realizada com sucesso!");
+			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!");
 
 		} catch (BOValidationException b) {
 			b.printStackTrace();
@@ -168,15 +165,12 @@ public class EditarContato extends JFrame {
 	}
 
 	public void editar(ContelVO cont) {
-
 		contatoAtual = cont;
 
 		this.ftfCodigo.setText(cont.getId().toString());
 		this.ftfDDD.setText(cont.getDddnum().toString());
 		this.ftfNumero.setText(cont.getNumero().toString());
 		this.ftfEmail.setText(cont.getEmails().toString());
-
-
 	}
 
 }
