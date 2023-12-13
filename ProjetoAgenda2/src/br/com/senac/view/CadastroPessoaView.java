@@ -259,7 +259,7 @@ public class CadastroPessoaView extends JFrame {
 					JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 
 			if (n == 0) {
-				ContelVO contato = (ContelVO) tableModel1.getRows().get(table.getSelectedRow()).getElement();
+				ContelVO contato = (ContelVO) tableModel1.getRows().get(table_1.getSelectedRow()).getElement();
 				Service service = new Service();
 
 				try {
@@ -291,7 +291,7 @@ public class CadastroPessoaView extends JFrame {
 		} else {
 			try {
 				EditarContato edt = new EditarContato(getContatoSelecionado());
-				ContelVO aux = (ContelVO) tableModel1.getRows().get(table.getSelectedRow()).getElement();
+				ContelVO aux = (ContelVO) tableModel1.getRows().get(table_1.getSelectedRow()).getElement();
 
 				edt.editar(aux);
 				edt.setVisible(true);

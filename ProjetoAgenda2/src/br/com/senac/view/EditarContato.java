@@ -57,8 +57,8 @@ public class EditarContato extends JFrame {
 		
 		this.contato = contato;
 
-		setTitle("Contato");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Contatos");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -150,6 +150,9 @@ public class EditarContato extends JFrame {
 			service.salvar(contelVO);
 
 			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!");
+			
+			setVisible(false);
+			dispose();
 
 		} catch (BOValidationException b) {
 			b.printStackTrace();

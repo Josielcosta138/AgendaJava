@@ -51,8 +51,8 @@ public class EditarPessoa extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(EditarPessoa.class.getResource("/br/com/senac/view/novaGeracaoAgenda.jpg")));
 		contatoAtual = new ContatoVO();
 
-		setTitle("Contato");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Pessoa");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -167,6 +167,8 @@ public class EditarPessoa extends JFrame {
 			service.salvar(contatoVO);
 
 			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!");
+			setVisible(false);
+			dispose();
 
 		} catch (BOValidationException b) {
 			b.printStackTrace();
