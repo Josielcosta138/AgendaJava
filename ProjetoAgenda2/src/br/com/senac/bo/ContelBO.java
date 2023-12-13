@@ -27,7 +27,7 @@ public class ContelBO implements IContelBO {
 	public List<ContelVO> listarContatoTel(ContatoVO contat) throws BOException {
 		
 		if (contat == null || contat.getId() == null) {
-			throw new BOException("Cliente não pode ser nulo na " + "Consulta de contatos. ");
+			throw new BOException("Contato não pode ser nulo na " + "Consulta de contatos. ");
 		}
 	return contelDAO.listarContatoTel(contat);
 	}
@@ -37,17 +37,20 @@ public class ContelBO implements IContelBO {
 		if (contelVO == null) {
 			throw new BOException("Contato nulo ou inválido.");
 		
-		}else if (contelVO.getNumero() == null) {
-			throw new BOException("Número: Erro de validação: " + "Número do contato nula. ");
-		
 		}else if (contelVO.getDddnum().length() < 2) {
-			throw new BOValidationException("dddnum: Erro de validação: " + " dddnum do contato é muito curta.");
+			throw new BOValidationException("DDD: Erro de validação: " + " número DDD inválido.");
+
+		}else if (contelVO.getNumero() == null) {
+			throw new BOException("Número: Erro de validação: " + "Número do contato nulo. ");
+
+		}else if (contelVO.getNumero().length() > 10) {
+			throw new BOValidationException("Número: Erro de validação: " + " número deve conter formato: 99999-9999.");
 		
 		}else if (contelVO.getEmails() == null) {
-			throw new BOException("emails: Erro de validação: " + "emails do contato nula. ");
+			throw new BOException("email: Erro de validação: " + "email do contato nulo. ");
 
 		}else if (contelVO.getContat() == null) {
-			throw new BOException("Contato pessoa: Erro de validação: " + "Contato pessoa do contato nula. ");
+			throw new BOException("Contato: Erro de validação: " + "Contato não informado. ");
 		}
 		
 		contelDAO.salvar(contelVO);
@@ -57,7 +60,7 @@ public class ContelBO implements IContelBO {
 	@Override
 	public void excluir(ContelVO contelVO) throws BOValidationException, BOException {
 		if (contelVO == null || contelVO.getId() == null) {
-			throw new BOException("Produto nulo ou inválido." + "Impossivel de excluir.");
+			throw new BOException("Contato telefônico nulo ou inválido." + "Impossível de excluir.");
 		}
 		
 		contelDAO.excluir(contelVO);

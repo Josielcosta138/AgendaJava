@@ -34,7 +34,7 @@ public class ContatoBO implements IContatoBO {
 			throws BOException {
 	
 		if (contatVO == null || contatVO.getId() == null) {
-			throw new BOException("Cliente não pode ser nulo na " + "Consulta de contatos. ");
+			throw new BOException("Contato não pode ser nulo na " + "Consulta de contatos. ");
 		}
 	return contatoDao.listarContato(contatVO, id, descri, datnas, observ);
 	}
@@ -44,7 +44,7 @@ public class ContatoBO implements IContatoBO {
 		if (contatoVO == null) {
 			throw new BOException("Contato nulo ou inválido.");
 		}else if (contatoVO.getNome() == null) {
-			throw new BOException("Descrição: Erro de validação: " + "descrição do contato nula. ");
+			throw new BOException("Descrição: Erro de validação: " + "descrição do contato nulo. ");
 		}else if (contatoVO.getNome().length() < 2) {
 			throw new BOValidationException("Descrição: Erro de validação: " + "a descrição do contato é muito curta.");
 		}else if (contatoVO.getDatnas() == null) {
