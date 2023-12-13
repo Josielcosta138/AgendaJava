@@ -17,11 +17,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
 @Table(name = "contel")
-public class ContelVO implements Serializable{
-
+public class ContelVO implements Serializable {
 
 	private static final long serialVersionUID = 8018416086146027602L;
 
@@ -32,34 +30,28 @@ public class ContelVO implements Serializable{
 	@SequenceGenerator(name = "contel", sequenceName = "sq_contel", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "contel")
 	private BigInteger id;
-	
+
 	@Basic(optional = true) // Not Null esta "desmarcado" no banco
 	@Column(name = "numero", length = 10)
 	private String numero;
-	
+
 	@Basic(optional = true) // Not Null esta desmarcado no banco
 	@Column(name = "dddnum", length = 2)
 	private String dddnum;
-	
-	@Basic(optional = true) 
+
+	@Basic(optional = true)
 	@Column(name = "emails", length = 250)
 	private String emails;
-	
-	//CHAVE ESTRANGEIRA
+
+	// CHAVE ESTRANGEIRA
 	@NotNull
 	@JoinColumn(name = "contat", referencedColumnName = "id", nullable = false)
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private ContatoVO contat;
 
-	
-
-
 	public ContelVO() {
 		super();
 	}
-
-
-
 
 	public ContelVO(@NotNull BigInteger id, String numero, String dddnum, String emails, @NotNull ContatoVO contat) {
 		super();
@@ -70,93 +62,54 @@ public class ContelVO implements Serializable{
 		this.contat = contat;
 	}
 
-
-
-
 	public BigInteger getId() {
 		return id;
 	}
-
-
-
 
 	public void setId(BigInteger id) {
 		this.id = id;
 	}
 
-
-
-
 	public String getNumero() {
 		return numero;
 	}
-
-
-
 
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
-
-
-
 	public String getDddnum() {
 		return dddnum;
 	}
-
-
-
 
 	public void setDddnum(String dddnum) {
 		this.dddnum = dddnum;
 	}
 
-
-
-
 	public String getEmails() {
 		return emails;
 	}
-
-
-
 
 	public void setEmails(String emails) {
 		this.emails = emails;
 	}
 
-
-
-
 	public ContatoVO getContat() {
 		return contat;
 	}
-
-
-
 
 	public void setContat(ContatoVO contat) {
 		this.contat = contat;
 	}
 
-
-
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-
-
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(contat, dddnum, emails, id, numero);
 	}
-
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -172,20 +125,10 @@ public class ContelVO implements Serializable{
 				&& Objects.equals(numero, other.numero);
 	}
 
-
-
-
 	@Override
 	public String toString() {
 		return "ContelVO [id=" + id + ", numero=" + numero + ", dddnum=" + dddnum + ", emails=" + emails + ", contat="
 				+ contat + "]";
 	}
-	
-	
-	
-	
-	
-	
 
-	
 }

@@ -23,123 +23,98 @@ public class ContatoDAO implements IContatoDao {
 		EntityManager em = HibernateUtil.getEntityManager();
 		ContatoVO contato = em.find(ContatoVO.class, contatVO.getId());
 		System.out.println("Contato: " + contato.getId() + " - " + contato.getNome());
-		
+
 		em.close();
 		return contato;
 	}
 
 	@Override
-	public List<ContatoVO> listarContato(ContatoVO contatVO, BigInteger id, String descri, Date datnas, 
-			String observ) throws BOException {
-		
-		System.out.println("********************Començando lisatagem**********************");
+	public List<ContatoVO> listarContato(ContatoVO contatVO, BigInteger id, String descri, Date datnas, String observ)
+			throws BOException {
+
+		System.out.println("********** Começando listagem ************");
 		EntityManager em = HibernateUtil.getEntityManager();
-		
+
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ContatoVO> criteria = cb.createQuery(ContatoVO.class);
-		
-		//Clausula from
+
+		// Clausula from
 		Root<ContatoVO> contatoFrom = criteria.from(ContatoVO.class);
-		
-	
-		
-		//Class é do pacote Java.persistente
+
+		// Class é do pacote Java.persistente
 		Predicate contatoWhere = cb.equal(contatoFrom.get("client"), contatVO);
-		
+
 		if (id != null) {
 			contatoWhere = cb.and(contatoWhere, cb.equal(contatoFrom.get("id"), id));
 		}
-		
+
 		if (descri != null) {
-			contatoWhere = cb.and(contatoWhere, cb.like(cb.lower(contatoFrom.get("descri"))
-					,"%" + descri.toLowerCase() + "%"));
+			contatoWhere = cb.and(contatoWhere,
+					cb.like(cb.lower(contatoFrom.get("descri")), "%" + descri.toLowerCase() + "%"));
 		}
-		
-		
-		//Clausula OrderBy
-		Order  produtoOrderBy = cb.asc(contatoFrom.get("descri"));
-		
+
+		// Clausula OrderBy
+		Order produtoOrderBy = cb.asc(contatoFrom.get("descri"));
+
 		criteria.select(contatoFrom);
 		criteria.where(contatoWhere);
 		criteria.orderBy(produtoOrderBy);
-		
+
 		TypedQuery<ContatoVO> query = em.createQuery(criteria);
-		
-		
-		//List do pacote util
+
+		// List do pacote util
 		List<ContatoVO> listaProdutos = query.getResultList();
-		System.out.println("********************Encerrou!**********************");
+		System.out.println("***** Encerrou! *****");
 		em.close();
-		
+
 		return listaProdutos;
 	}
 
 	@Override
 	public void salvar(ContatoVO contatoVO) throws BOValidationException, BOException {
-	
+
 		EntityManager em = HibernateUtil.getEntityManager();
 
 		try {
-			
+
 			em.getTransaction().begin();
-			
+
 			if (contatoVO.getId() == null) {
 				em.persist(contatoVO);
-			}else {
+			} else {
 				em.merge(contatoVO);
 			}
 			em.getTransaction().commit();
-			System.out.println("Produto inserido com sucesso!");
-			
+			System.out.println("Contato inserido com sucesso!");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			em.getTransaction().rollback();
 			throw new BOException(e);
 		}
-		
-		
+
 	}
 
 	@Override
 	public void excluir(ContatoVO contatoVO) throws BOValidationException, BOException {
-		
+
 		EntityManager em = HibernateUtil.getEntityManager();
-		
+
 		try {
 			em.getTransaction().begin();
 			ContatoVO contato = em.find(ContatoVO.class, contatoVO.getId());
 			em.remove(contato); // merge edicao
 			em.getTransaction().commit();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			em.getTransaction().rollback();
 			throw new BOException(e);
-			
-		}finally {
+
+		} finally {
 			em.close();
 		}
-		
+
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

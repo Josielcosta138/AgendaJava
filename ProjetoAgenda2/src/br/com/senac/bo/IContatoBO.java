@@ -10,20 +10,13 @@ import br.com.senac.vo.ContatoVO;
 
 public interface IContatoBO {
 
-	public abstract ContatoVO buscarContatoPorId( ContatoVO contatVO)
-			throws BOException;
-		
-		public abstract List<ContatoVO> listarContato(ContatoVO contatVO, 
-													BigInteger id, 
-													String descri, 
-													Date datnas,
-													String observ) throws BOException;
-		
-		public abstract void salvar(ContatoVO produtoVO) 
-				throws BOValidationException, BOException;
-		
-		
-		public abstract void excluir(ContatoVO produtoVO) 
-				throws BOValidationException, BOException;
-	
+	public abstract ContatoVO buscarContatoPorId(ContatoVO contatVO) throws BOException;
+
+	public abstract List<ContatoVO> listarContato(ContatoVO contatVO, BigInteger id, String descri, Date datnas,
+			String observ) throws BOException;
+
+	public abstract void salvar(ContatoVO produtoVO) throws BOValidationException, BOException;
+
+	public abstract void excluir(ContatoVO produtoVO) throws BOValidationException, BOException;
+
 }

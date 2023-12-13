@@ -1,12 +1,8 @@
 package br.com.senac.view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import br.com.senac.dao.TesteHibernate;
 
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -28,35 +24,6 @@ public class LoginView extends JFrame {
 	private JButton btnAcessar;
 	private JPasswordField passwordField;
 	
-
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-//					LoginView frame = new LoginView();
-//					frame.setVisible(true);
-					
-/*					TesteHibernate th = new TesteHibernate();
-					
-					th.inserirContato();
-					//th.inserirPorId();
-					//th.excluirContato();
-					//th.editar();
-					
-					//th.consultaNumEmails();
-					th.consultaPorNome();
-					//th.consultaCampoNulo();
-					
-					System.exit(0); */
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-
 	public LoginView() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginView.class.getResource("/br/com/senac/view/novaGeracaoAgenda.jpg")));
 		setTitle("AGENDA - NOVA GERAÇÃO");

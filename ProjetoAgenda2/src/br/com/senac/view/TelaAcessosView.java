@@ -6,11 +6,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
 import java.awt.EventQueue;
-import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class TelaAcessosView extends JFrame {
 
@@ -30,47 +30,30 @@ public class TelaAcessosView extends JFrame {
 	}
 
 	public TelaAcessosView() {
+		setForeground(new Color(0, 0, 0));
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(TelaAcessosView.class.getResource("/br/com/senac/view/novaGeracaoAgenda.jpg")));
 		setTitle("AGENDA - NOVA GERAÇÃO");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 502, 409);
+		setBounds(100, 100, 490, 435);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.BLACK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JButton btnPessoa = new JButton("PESSOAS");
-		btnPessoa.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnPessoa.setBounds(39, 267, 196, 63);
-		contentPane.add(btnPessoa);
-
-		JButton btnContatos = new JButton("CONTATOS");
-		btnContatos.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnContatos.setBounds(264, 267, 196, 63);
-		contentPane.add(btnContatos);
-
-		JButton btnNewButton = new JButton("");
-		btnNewButton
-				.setIcon(new ImageIcon(TelaAcessosView.class.getResource("/br/com/senac/view/novaGeracaoAgenda.jpg")));
-		btnNewButton.setBounds(131, 29, 226, 217);
-		contentPane.add(btnNewButton);
-
-		JButton btnVoltar = new JButton("<-");
-		btnVoltar.addActionListener(new ActionListener() {
+		JButton btnBtnSystem = new JButton("");
+		btnBtnSystem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				CadastroPessoaView cadastroPessoaView= new CadastroPessoaView();
+				cadastroPessoaView.setVisible(true);
 				dispose();
-
-				LoginView frame = new LoginView();
-				frame.setVisible(true);
 			}
 		});
-		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnVoltar.setIcon(null);
-		btnVoltar.setBounds(10, 10, 60, 41);
-		contentPane.add(btnVoltar);
+		btnBtnSystem
+				.setIcon(new ImageIcon(TelaAcessosView.class.getResource("/br/com/senac/view/novaGeracaoAgenda.jpg")));
+		btnBtnSystem.setBounds(126, 84, 220, 217);
+		contentPane.add(btnBtnSystem);
 	}
-
 }

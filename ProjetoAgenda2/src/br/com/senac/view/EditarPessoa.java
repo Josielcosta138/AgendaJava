@@ -17,7 +17,6 @@ import br.com.senac.vo.ContatoVO;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -34,9 +33,6 @@ public class EditarPessoa extends JFrame {
 	private JFormattedTextField ftfObservacao;
 	private ContatoVO contatoAtual;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -50,9 +46,6 @@ public class EditarPessoa extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public EditarPessoa() {
 		contatoAtual = new ContatoVO();
 
